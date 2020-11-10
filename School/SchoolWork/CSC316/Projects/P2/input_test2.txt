@@ -1,0 +1,13 @@
+< A, B, E, F, J, K, L, M, N, G, H, C, D, I, O, P, Q, R, S, T.
+> E, J, K, L, M, N, F, G, H, B, C, P, Q, R, S, T, O, I, D, A.
+? P, T.
+? R, A.
+? I, F.
+? E, D.
+? K, F.
+? H, S.
+? G, J.
+? O, B.
+? L, L.
+? A, M.
+

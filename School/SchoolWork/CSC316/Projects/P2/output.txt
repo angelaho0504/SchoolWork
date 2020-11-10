@@ -1,0 +1,10 @@
+P is T's sibling.
+R is A's child.
+I is F's aunt/uncle.
+E is D's niece/nephew.
+K is F's sibling.
+H is S's niece/nephew.
+G is J's sibling.
+O is B's sibling.
+L is L.
+A is M's grandparent.

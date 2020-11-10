@@ -1,0 +1,198 @@
+Microsoft (R) Macro Assembler Version 6.11		    07/07/19 11:44:31
+rlc.asm							     Page 1 - 1
+
+
+				;---------------------------------------------------------------------
+				;  Program:      Run Length Coding
+				;
+				;  Function:     Decompresses 1 dimensional run lengths
+				;                This subroutine links with a C main program
+				;
+				;                Add your additional functional comments
+				;
+				;  Owner:        Angela Ho
+				;
+				;  Changes:
+				;  Date          Reason
+				;  ----          ------
+				;  07/07/2019    Original version
+				;---------------------------------------------------------------------
+				.model    small
+				.8086
+				public    _rlc
+				;---------------------------------------
+ 0000				.data                         ;start the data segment
+				;---------------------------------------
+ 0000  0002 [			run      db        2 dup (?)           ; declare 2 uninitialized bytes to hold two runs
+        00
+       ]
+ 0002 00			len      db        ?                   ; number of pels in the current run
+ 0003 00			i        db        ?                   ; for loop counter
+ 0004 00			cur      db        ?
+				;---------------------------------------
+ 0000				.code                         ;start the code segnment
+				;---------------------------------------
+				; Save the registers ... 'C' requires (bp,si,di)
+				; Access the input and output lists
+				;---------------------------------------
+ 0000				_rlc:                                  ;
+ 0000  55			         push      bp                  ;save 'C' register
+ 0001  8B EC			         mov       bp,sp               ;set bp to point to stack
+ 0003  56			         push      si                  ;save 'C' register
+ 0004  57			         push      di                  ;save 'C' register
+ 0005  8B 76 04			         mov       si,[bp+4]           ;si points to the input compressed data
+ 0008  8B 7E 06			         mov       di,[bp+6]           ;di points to the empty output buffer
+				;---------------------------------------
+				; pels_left = 80;
+				; cur = wh;
+				;---------------------------------------
+ 000B  B0 50			         mov       al, 80              ; al store pels on a line, 80 al == pl
+ 000D  B4 20			         mov       ah, 32             ; dl store first color to output, white
+ 000F  B1 04			         mov       cl, 4               ; cl store the amount of shift
+				;---------------------------------------
+				; while(1) {
+				; code = *comp;
+				; comp++;
+				;---------------------------------------
+ 0011				while_:
+ 0011  8A 1C			         mov       bl,byte ptr [si]    ; mov the input compressed data into current  input bl == code
+ 0013  83 C6 01			         add       si, 1               ; advance the pointer to next element
+				;---------------------------------------
+				; if ( code == 0 ) return(0);
+				;---------------------------------------
+ 0016  80 FB 00			         cmp       bl, 0               ; if ( code == 0 )
+ 0019  74 4F			         je        exit                ; a byte of 00h signals end of data
+				;---------------------------------------
+				; run[0] = (unsigned char)(code >> 4)
+				; run[1] = (unsigned char)(code << 4)
+				;---------------------------------------
+ 001B  8A FB			         mov       bh, bl               ; mov input into run[1]
+ 001D  D2 EB			         shr       bl, cl               ; left 4 bits of input
+ 001F  80 E7 0F			         and       bh, 0fh              ; right 4 bits of input
+				;---------------------------------------
+				; for ( i = 0; i < 2; i++ )
+				;---------------------------------------
+ 0022				for_:
+ 0022  C6 06 0003 R 00		         mov       [i], 0              ; initialize for loop couter
+				;---------------------------------------
+				; if i = 0   dl = [run+0]
+				; if i = 1   dl = [run+1]
+				;---------------------------------------
+ 0027				testRun_:
+ 0027  8A D3			         mov       dl,bl               ;
+ 0029  80 3E 0003 R 01		         cmp       [i], 1              ; if the i = 0 then dl = [run+0]
+ 002E  7F E1			         jg        while_              ;
+ 0030  75 02			         jne       do_                 ; else dl = [run+1]
+ 0032				second_:
+ 0032  8A D7			         mov       dl,bh               ;
+				;---------------------------------------
+				; if ( pels_left == 0 ) {
+				; pels_left = 80;
+				; cur = wh;
+				; }
+				;---------------------------------------
+ 0034				do_:
+ 0034  3C 00			         cmp       al, 0               ; if at the end of a line then
+ 0036  75 04			         jne       testEnd_            ; if not equal jmp to testRun
+ 0038  B0 50			         mov       al,80               ; 80 pels to fill on that new line
+ 003A  B4 20			         mov       ah,32               ; first color is white
+				;---------------------------------------
+				; if ( run[i] == 15) len = pels_left;
+				; else len = run[i];
+				;---------------------------------------
+ 003C				testEnd_:
+ 003C  A2 0002 R         mov       [len], al           ; len = pl
+ 003F  80 FA 0F			         cmp       dl, 15              ; a run of 15 means go to end of line
+ 0042  74 04			         je        reducePel_             ;
+ 0044				else_:
+ 0044  88 16 0002 R		         mov       [len], dl           ; else we has a length 0-14
+				;---------------------------------------
+				; while ( len > 0 )
+				; *dcomp = cur;
+				; dcomp ++;
+				; len--;
+				; pels_left--;
+				;---------------------------------------
+ 0048				reducePel_:
+ 0048  2A 06 0002 R		        sub        al,[len]            ;
+ 004C  8A 0E 0002 R		        mov        cl,[len]            ;
+ 0050				while1_:
+ 0050  E3 07			         jcxz      swap_;
+ 0052  88 25			         mov       byte ptr [di], ah   ; *dcomp = cur
+ 0054  83 C7 01			         add       di, 1               ; advance the pointer to next element
+ 0057  E2 F7			         loop      while1_;
+				;---------------------------------------
+				; if ( cur == wh ) cur = bl;
+				; else cur = wh;
+				;---------------------------------------
+ 0059				swap_:
+ 0059  80 FC 20			         cmp       ah, 32              ; cmp == wh
+ 005C  75 04			         jne       else2_              ; if not equal
+ 005E  B4 DB			         mov       ah, 219             ;
+ 0060  EB 02			         jmp       next_               ; jump to test
+ 0062				else2_:
+ 0062  B4 20			         mov       ah, 32         ; swap the output pel color
+ 0064				next_:
+ 0064  FE 06 0003 R		         inc       [i]                 ;
+ 0068  EB BD			         jmp       testRun_            ;
+				;---------------------------------------
+				; Restore registers and return
+				;---------------------------------------
+ 006A				exit:                                  ;
+ 006A  5F			         pop       di                  ;restore 'C' register
+ 006B  5E			         pop       si                  ;restore 'C' register
+ 006C  5D			         pop       bp                  ;restore 'C' register
+ 006D  C3			         ret                           ;return
+				;---------------------------------------
+				end
+
+				 
+Microsoft (R) Macro Assembler Version 6.11		    07/07/19 11:44:31
+rlc.asm							     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0005	  Word	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	16 Bit	 006E	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+_rlc . . . . . . . . . . . . . .	L Near	 0000	  _TEXT	Public
+cur  . . . . . . . . . . . . . .	Byte	 0004	  _DATA	
+do_  . . . . . . . . . . . . . .	L Near	 0034	  _TEXT	
+else2_ . . . . . . . . . . . . .	L Near	 0062	  _TEXT	
+else_  . . . . . . . . . . . . .	L Near	 0044	  _TEXT	
+exit . . . . . . . . . . . . . .	L Near	 006A	  _TEXT	
+for_ . . . . . . . . . . . . . .	L Near	 0022	  _TEXT	
+i  . . . . . . . . . . . . . . .	Byte	 0003	  _DATA	
+len  . . . . . . . . . . . . . .	Byte	 0002	  _DATA	
+next_  . . . . . . . . . . . . .	L Near	 0064	  _TEXT	
+reducePel_ . . . . . . . . . . .	L Near	 0048	  _TEXT	
+run  . . . . . . . . . . . . . .	Byte	 0000	  _DATA	
+second_  . . . . . . . . . . . .	L Near	 0032	  _TEXT	
+swap_  . . . . . . . . . . . . .	L Near	 0059	  _TEXT	
+testEnd_ . . . . . . . . . . . .	L Near	 003C	  _TEXT	
+testRun_ . . . . . . . . . . . .	L Near	 0027	  _TEXT	
+while1_  . . . . . . . . . . . .	L Near	 0050	  _TEXT	
+while_ . . . . . . . . . . . . .	L Near	 0011	  _TEXT	
+
+	   0 Warnings
+	   0 Errors

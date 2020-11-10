@@ -1,0 +1,9 @@
+1. My name is Angela Ho.
+2. I have read and understood all the policies in the syllabus including grading and academic integrity.
+3. I understand that if I ask the staff to look at the code, it will be fully and clearly documented and I will have a design. 
+4. I understand that many issues with old test questions can be answered directly by the student by entering the question into a small program and assembly it and looking at the listing file or running the program through the debugger. 
+5. A non-technical person expects the displayed numerical answer to be 40000.
+6. I also predict the displayed numerical answer will be 40000.
+7. The actual displayed numerical answer is -25536.
+8. The actual displayed numerical answer did not match what the average non-technical person would expect and did not display any warning or error messages.
+9. After taking close look to the code, I found that the variable 'a' has the type short, which use 16 bits ( 15 bits for numeric storage and 1 bit for the sign). So the largest value a short value can store is 32768, after this value, it rolls over and become negative.

@@ -1,0 +1,185 @@
+Microsoft (R) Macro Assembler Version 6.11		    07/03/19 11:28:39
+nextVal.asm						     Page 1 - 1
+
+
+				;--------------------------------------------------------------------
+				;   Program:  nextval ( MASM version)
+				;
+				;   Function: Subroutine that will guide a mouse through a maze.
+				;             The maze is a 15 row by 30 column array that can be
+				;             traversed using left or right turning mouse.
+				;             You may only move one position at a time.
+				;             You may only move into a location in the maze if the
+				;             value of that location is blank (20h).
+				;             You may not move into a location that is blocked
+				;             (contains any value other than 20h).
+				;             You may only move left, right, up, down.
+				;             You may not move diagonally.
+				;             A position is given as y,x .
+				;             When your subroutine is called, you make 1 move in the maze
+				;             and then return.
+				;   Owner:    Angela Ho
+				;
+				;   Date:     Changes
+				;   06/25/19  original version
+				;---------------------------------------
+				        .model      small              ; 64k code and 64k data
+				        .8086                          ; only allow 8086 instructions
+				        public      nextval            ; all external program to call
+				;---------------------------------------
+				
+				;---------------------------------------
+ 0000				        .data                          ;start the data segment
+				;---------------------------------------
+ 0000 1E			col     db         30
+				;---------------------------------------
+ 0000				        .code                          ;start the code segment
+				;---------------------------------------
+ 0000				nextVal:
+ 0000  55			         push      bp                  ; save bp on stack
+ 0001  50			         push      ax                  ; save ax on stack
+ 0002  51			         push      cx                  ; save bx on stack
+				;---------------------------------------
+				; calculate the offset
+				; offset = (*y-1)*30 + (*x-1);
+				;---------------------------------------
+ 0003				getValue:
+ 0003  8A 0C			         mov       cl,[si]             ; load bl with the x value
+ 0005  8A 05			         mov       al,[di]             ; load al with the y value
+ 0007				getOffset:
+ 0007  FE C9			         dec       cl                  ; subtract 1 from x value
+ 0009  FE C8			         dec       al                  ; subtract 1 from y value
+ 000B  F6 26 0000 R		         mul       [col]               ; multipy y by number of column (30)
+ 000F  02 C1			         add       al, cl              ; al now contain the offset
+ 0011  80 D4 00			         adc       ah, 0               ; add with carry to ensure the value wont overflow
+ 0014  03 E8			         add       bp, ax              ; increment the pointer with offset to get current locatoion
+				;---------------------------------------
+				; get the current direction
+				; if (*direction == 1) goto testn;
+				; if (*direction == 2) goto teste;
+				; if (*direction == 3) goto tests;
+				; if (*direction == 4) goto testw;
+				;---------------------------------------
+ 0016				getDirection:
+ 0016  80 3F 03			         cmp       byte ptr[bx],3;
+ 0019  74 24			         je        south;
+ 001B  77 30			         ja        west;
+ 001D  80 3F 01			         cmp       byte ptr[bx],1;
+ 0020  77 0E			         ja        east;
+				;---------------------------------------
+				; get the next direction and move
+				; north :
+				; if (maze[offset-30] == ' ')
+				; {
+				; *y = *y-1;
+				; *x = *x;
+				; *direction = 4;
+				; return; // return
+				; }
+				;---------------------------------------
+ 0022				north:
+ 0022  3E: 80 7E E2 20		         cmp       byte ptr ds:[bp-30], 20h ; if the north direction is equal to space
+ 0027  75 07			         jne       east                ; if it is not a space, try east side
+ 0029  C6 07 04			         mov       byte ptr[bx],4      ; change direction to north
+ 002C  FE 0D			         dec       byte ptr[di]        ; subtract y value by one to move the mouse
+ 002E  EB 29			         jmp exit                      ; return
+				;---------------------------------------
+				; get the next direction and move
+				; east :
+				; if (maze[offset+1] == ' ')
+				; {
+				; *y = *y;
+				; *x = *x + 1;
+				; *direction = 1;
+				; return; // return
+				; }
+				;---------------------------------------
+ 0030				east:
+ 0030  3E: 80 7E 01 20		         cmp       byte ptr ds:[bp+1],20h   ; if the east direction is equal to space
+ 0035  75 08			         jne       south               ; if it is not a space, try south side
+ 0037  C6 07 01			         mov       byte ptr[bx],1      ; change direction to east
+ 003A  80 04 01			         add       byte ptr[si],1        ; increase the x value to move the mouse
+ 003D  EB 1A			         jmp       exit                ; return
+				;---------------------------------------
+				; get the next direction and move
+				; south :
+				; if (maze[offset+30] == ' ')
+				; {
+				; *y = *y+1;
+				; *x = *x;
+				; *direction = 2;
+				; return; // return
+				; }
+				;---------------------------------------
+ 003F				south:
+ 003F  3E: 80 7E 1E 20		         cmp       byte ptr ds:[bp+30],20h  ; if the south direction is equal to space
+ 0044  75 07			         jne       west                ; if it is not a space, try west side
+ 0046  C6 07 02			         mov       byte ptr[bx],2      ; change direction to south
+ 0049  FE 05			         inc       byte ptr[di]        ; increase y to move the mouse
+ 004B  EB 0C			         jmp       exit                ; return new x and y
+				;---------------------------------------
+				; get the next direction and move
+				; west :
+				; if (maze[offset-30] == ' ')
+				; {
+				; *y = *y;
+				; *x = *x-1;
+				; *direction = 3;
+				; return; // return
+				; }
+				;---------------------------------------
+ 004D				west:
+ 004D  3E: 80 7E FF 20		         cmp       byte ptr ds:[bp-1],20h  ; if the west direction is equal to space
+ 0052  75 CE			         jne       north               ; if it is not a space, try north side
+ 0054  FE 0C			         dec       byte ptr[si]        ; decrease x to move the mouse
+ 0056  C6 07 03			         mov       byte ptr[bx],3      ; change direction to west
+				;---------------------------------------
+				; exit the program
+				;---------------------------------------
+ 0059				exit:
+ 0059  59			         pop       cx                  ; restore cx register
+ 005A  58			         pop       ax                  ; restore ax register
+ 005B  5D			         pop       bp                  ; restore bp register
+ 005C  C3			         ret                           ; return to function
+				         end
+Microsoft (R) Macro Assembler Version 6.11		    07/03/19 11:28:39
+nextVal.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0001	  Word	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	16 Bit	 005D	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+col  . . . . . . . . . . . . . .	Byte	 0000	  _DATA	
+east . . . . . . . . . . . . . .	L Near	 0030	  _TEXT	
+exit . . . . . . . . . . . . . .	L Near	 0059	  _TEXT	
+getDirection . . . . . . . . . .	L Near	 0016	  _TEXT	
+getOffset  . . . . . . . . . . .	L Near	 0007	  _TEXT	
+getValue . . . . . . . . . . . .	L Near	 0003	  _TEXT	
+nextval  . . . . . . . . . . . .	L Near	 0000	  _TEXT	Public
+north  . . . . . . . . . . . . .	L Near	 0022	  _TEXT	
+south  . . . . . . . . . . . . .	L Near	 003F	  _TEXT	
+west . . . . . . . . . . . . . .	L Near	 004D	  _TEXT	
+
+	   0 Warnings
+	   0 Errors

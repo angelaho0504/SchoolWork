@@ -1,0 +1,13 @@
+CSC23x:  Homework Grades    (code=3-86587-1) Ver 580110
+Student:                   Ho,               Angela 
+Created: 06/17/19 Updated:  06/28 03:35:04  
+
+HW#  Started        Status         Grade
+HW5  06/17/19       D 06/17 09:51  100               
+HW6  06/19/19       D 06/19 11:53  100               
+HW7                                000               
+HW8  06/28/19       D 06/28 03:35  100               
+VER=M403630G0X0U11B1U0P0H0:1:50 K032201V00/08000000000
+
+End of file     
+-

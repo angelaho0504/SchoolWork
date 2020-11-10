@@ -1,0 +1,280 @@
+Test date: 07/07/19  11:42:43 
+The number of times you used the grading program is 8 
+In the business world, your customer replaces the grading program. 
+The goal is a correct program with the fewest grading attempts. 
+RLC Grading System Version 4.0
+Student: Last=Ho                   First=Angela               Type=Individual          
+Grading and testing history log
+       User Test.    Date: 07/06/19  20:32:47  1            Display      
+       User Test.    Date: 07/06/19  21:34:03  1            Display      
+       User Test.    Date: 07/06/19  21:40:04  1            Display      
+       User Test.    Date: 07/06/19  21:48:42  1            Display      
+       User Test.    Date: 07/06/19  21:49:50  1            Display      
+       User Test.    Date: 07/06/19  21:54:28  1            Display      
+       User Test.    Date: 07/06/19  21:55:35  1            Display      
+       User Test.    Date: 07/06/19  22:25:10  1            Display      
+       User Test.    Date: 07/06/19  22:40:13  1            Display      
+       User Test.    Date: 07/06/19  22:44:27  2            Display      
+       User Test.    Date: 07/06/19  22:44:34  3            Display      
+       User Test.    Date: 07/06/19  22:44:43  2            Display      
+       User Test.    Date: 07/06/19  22:44:51  1            Display      
+       User Test.    Date: 07/06/19  22:55:06  2            Display      
+       User Test.    Date: 07/06/19  22:55:12  3            Display      
+       User Test.    Date: 07/06/19  23:39:17  1            Display      
+       User Test.    Date: 07/06/19  23:39:21  2            Display      
+       User Test.    Date: 07/06/19  23:39:23  3            Display      
+   *** Grading Run.  Date: 07/06/19  23:39:37 
+       User Test.    Date: 07/06/19  23:42:00  1            Display      
+       User Test.    Date: 07/06/19  23:42:38  1            Display      
+       User Test.    Date: 07/06/19  23:42:58  1            Display      
+       User Test.    Date: 07/06/19  23:43:37  1            Display      
+       User Test.    Date: 07/06/19  23:44:17  1            Display      
+       User Test.    Date: 07/07/19  00:59:33  1            Display      
+       User Test.    Date: 07/07/19  01:04:34  1            Display      
+   *** Grading Run.  Date: 07/07/19  01:04:38 
+       User Test.    Date: 07/07/19  01:24:54  1            Display      
+       User Test.    Date: 07/07/19  01:26:19  2            Display      
+       User Test.    Date: 07/07/19  01:26:23  3            Display      
+       User Test.    Date: 07/07/19  01:30:01  1            Display      
+   *** Grading Run.  Date: 07/07/19  01:30:03 
+       User Test.    Date: 07/07/19  01:37:08  1            Display      
+   *** Grading Run.  Date: 07/07/19  01:37:10 
+       User Test.    Date: 07/07/19  01:58:02  1            Display      
+   *** Grading Run.  Date: 07/07/19  01:58:04 
+       User Test.    Date: 07/07/19  01:59:34  1            Display      
+   *** Grading Run.  Date: 07/07/19  02:00:41 
+       User Test.    Date: 07/07/19  02:05:42  1            Display      
+       User Test.    Date: 07/07/19  02:07:53  1            Display      
+       User Test.    Date: 07/07/19  02:09:07  1            Display      
+       User Test.    Date: 07/07/19  02:10:11  1            Display      
+       User Test.    Date: 07/07/19  02:10:22  1            Display      
+       User Test.    Date: 07/07/19  02:11:48  1            Display      
+       User Test.    Date: 07/07/19  02:16:33  1            Display      
+       User Test.    Date: 07/07/19  02:18:49  1            Display      
+       User Test.    Date: 07/07/19  02:19:20  1            Display      
+       User Test.    Date: 07/07/19  02:19:35  1            Display      
+       User Test.    Date: 07/07/19  02:20:29  1            Display      
+       User Test.    Date: 07/07/19  02:22:59  1            Display      
+       User Test.    Date: 07/07/19  02:26:16  1            Display      
+   *** Grading Run.  Date: 07/07/19  02:26:21 
+       User Test.    Date: 07/07/19  02:29:50  1            Display      
+       User Test.    Date: 07/07/19  02:41:42  1            Display      
+       User Test.    Date: 07/07/19  02:46:41  1            Display      
+       User Test.    Date: 07/07/19  02:49:49  1            Display      
+       User Test.    Date: 07/07/19  02:50:28  1            Display      
+       User Test.    Date: 07/07/19  03:06:08  1            Display      
+       User Test.    Date: 07/07/19  03:13:16  1            Display      
+       User Test.    Date: 07/07/19  03:23:32  1            Display      
+       User Test.    Date: 07/07/19  03:23:34  2            Display      
+       User Test.    Date: 07/07/19  03:23:40  1            Display      
+       User Test.    Date: 07/07/19  03:26:18  1            Display      
+       User Test.    Date: 07/07/19  10:51:29  1            Display      
+       User Test.    Date: 07/07/19  10:56:45  1            Display      
+       User Test.    Date: 07/07/19  11:08:08  1            Display      
+       User Test.    Date: 07/07/19  11:28:02  1            Display      
+       User Test.    Date: 07/07/19  11:42:40  1            Display      
+   *** Grading Run.  Date: 07/07/19  11:42:43 
+
+Testing 1 dimension compression
+Your output is correct
+Your output is correct
+Your output is correct
+
++  Your executed instruction count for tests run = 00020610
++   
++  Target instructions executed for tests run is:
++  20 points 00000 - 07999 
++  15 points 08000 - 09999 
++  10 points 10000 - 11999 
++   5 points 12000 - 13999 
++   0 points 14001 +       
++                          
+
+++ Grade ++    0 = Points earned for code executed efficiency!
+
+1 dimension compression is working
+
+The following is credit earned for 1-dim compression
+
+++ Grade ++  040 = Points earned for correct answers.
+
+-> We are now analyzing your source code. You will be graded on
+the number of instructions you wrote to solve this problem.
+The target for the number of executable instructions written is:
+ 00 -  44 = 20 points 
+ 45 -  49 = 15 points 
+ 50 -  54 = 10 points 
+ 55 -  59 =  5 points 
+ 60+      =  0 points 
+Your actual counts are:
+Lines ....... 144    Comments ...  71    Labels .......  15   
+Directives ..   6    Variables ..   4    Executables ..  48    McCabe ..   8 
+++ Grade ++   15 = Points earned for code written efficiency.  
+
+-> Analyzing program documentation. 
+The heuristic algorithms used may have problems with your specific code. 
+Contact the instructor if you detect a problem with your grade. 
+DOCPH-0015 The program header format is adequate. 
+DOCHB-0.83 Use of code block headers is adequate. 
+DOCLC-0.81 Use of line comments is adequate. 
+++ Grade ++   20 = Points earned for correct documentation.    
+
+-> Calculating the total grade for the program.                  
+This grade is subject to adjustment by the instructor.           
+This grade will be reduced by any late submission penalty.       
+++ Grade ++   75 = Total grade generated by the Grading System.  
+
+-> Statistics on testing and grading                             
+    61  = Number of user tests.                                  
+     8  = Number of grading runs to get the program working.     
+     0  = Number of grading runs to improve efficiency or documentation. 
+
++- atyC:6&}xC7;&k~C6&juiC86&zuzC=;&Zkyz&jgzk@&6=56=57?&&77@:8@:9&
+
+Building the file rlc.ans for electronic submission...
+
+;---------------------------------------------------------------------
+;  Program:      Run Length Coding
+;
+;  Function:     Decompresses 1 dimensional run lengths
+;                This subroutine links with a C main program
+;
+;                Add your additional functional comments
+;
+;  Owner:        Angela Ho
+;
+;  Changes:
+;  Date          Reason
+;  ----          ------
+;  07/07/2019    Original version
+;---------------------------------------------------------------------
+.model    small
+.8086
+public    _rlc
+;---------------------------------------
+.data                         ;start the data segment
+;---------------------------------------
+run      db        2 dup (?)           ; declare 2 uninitialized bytes to hold two runs
+len      db        ?                   ; number of pels in the current run
+i        db        ?                   ; for loop counter
+cur      db        ?
+;---------------------------------------
+.code                         ;start the code segnment
+;---------------------------------------
+; Save the registers ... 'C' requires (bp,si,di)
+; Access the input and output lists
+;---------------------------------------
+_rlc:                                  ;
+         push      bp                  ;save 'C' register
+         mov       bp,sp               ;set bp to point to stack
+         push      si                  ;save 'C' register
+         push      di                  ;save 'C' register
+         mov       si,[bp+4]           ;si points to the input compressed data
+         mov       di,[bp+6]           ;di points to the empty output buffer
+;---------------------------------------
+; pels_left = 80;
+; cur = wh;
+;---------------------------------------
+         mov       al, 80              ; al store pels on a line, 80 al == pl
+         mov       ah, 32             ; dl store first color to output, white
+         mov       cl, 4               ; cl store the amount of shift
+;---------------------------------------
+; while(1) {
+; code = *comp;
+; comp++;
+;---------------------------------------
+while_:
+         mov       bl,byte ptr [si]    ; mov the input compressed data into current  input bl == code
+         add       si, 1               ; advance the pointer to next element
+;---------------------------------------
+; if ( code == 0 ) return(0);
+;---------------------------------------
+         cmp       bl, 0               ; if ( code == 0 )
+         je        exit                ; a byte of 00h signals end of data
+;---------------------------------------
+; run[0] = (unsigned char)(code >> 4)
+; run[1] = (unsigned char)(code << 4)
+;---------------------------------------
+         mov       bh, bl               ; mov input into run[1]
+         shr       bl, cl               ; left 4 bits of input
+         and       bh, 0fh              ; right 4 bits of input
+;---------------------------------------
+; for ( i = 0; i < 2; i++ )
+;---------------------------------------
+for_:
+         mov       [i], 0              ; initialize for loop couter
+;---------------------------------------
+; if i = 0   dl = [run+0]
+; if i = 1   dl = [run+1]
+;---------------------------------------
+testRun_:
+         mov       dl,bl               ;
+         cmp       [i], 1              ; if the i = 0 then dl = [run+0]
+         jg        while_              ;
+         jne       do_                 ; else dl = [run+1]
+second_:
+         mov       dl,bh               ;
+;---------------------------------------
+; if ( pels_left == 0 ) {
+; pels_left = 80;
+; cur = wh;
+; }
+;---------------------------------------
+do_:
+         cmp       al, 0               ; if at the end of a line then
+         jne       testEnd_            ; if not equal jmp to testRun
+         mov       al,80               ; 80 pels to fill on that new line
+         mov       ah,32               ; first color is white
+;---------------------------------------
+; if ( run[i] == 15) len = pels_left;
+; else len = run[i];
+;---------------------------------------
+testEnd_:
+         mov       [len], al           ; len = pl
+         cmp       dl, 15              ; a run of 15 means go to end of line
+         je        reducePel_             ;
+else_:
+         mov       [len], dl           ; else we has a length 0-14
+;---------------------------------------
+; while ( len > 0 )
+; *dcomp = cur;
+; dcomp ++;
+; len--;
+; pels_left--;
+;---------------------------------------
+reducePel_:
+        sub        al,[len]            ;
+while1_:
+         jmp       test1_              ; len > 0
+then_:
+         mov       byte ptr [di], ah   ; *dcomp = cur
+         add       di, 1               ; advance the pointer to next element
+         dec       [len]               ; reduce # of pels to still to output
+test1_:
+         cmp       [len], 0            ; if len > 0
+         jg        then_               ;
+;---------------------------------------
+; if ( cur == wh ) cur = bl;
+; else cur = wh;
+;---------------------------------------
+         cmp       ah, 32              ; cmp == wh
+         jne       else2_              ; if not equal
+         mov       ah, 219             ;
+         jmp       next_               ; jump to test
+else2_:
+         mov       ah, 32         ; swap the output pel color
+next_:
+         inc       [i]                 ;
+         jmp       testRun_            ;
+;---------------------------------------
+; Restore registers and return
+;---------------------------------------
+exit:                                  ;
+         pop       di                  ;restore 'C' register
+         pop       si                  ;restore 'C' register
+         pop       bp                  ;restore 'C' register
+         ret                           ;return
+;---------------------------------------
+end
+
+

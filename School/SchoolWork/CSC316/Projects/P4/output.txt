@@ -1,0 +1,71 @@
+Misspelled Word/s: 
+deeling
+hih-school
+-
+is,
+second,
+third,
+-
+dificult
+sychological
+stage,
+adolesence.
+confused
+mentaly,
+involuntery
+distractions
+dreamines.
+basicaly
+self-consious,
+frankness
+usualy
+it.
+motivated
+iether
+ambition,
+probably
+capabiltys,
+lazines
+caused
+suceeding
+ataining
+objectives.
+fundamentaly
+refuse
+it.
+earlier
+training,
+evary
+doubly
+hard.
+wiling
+work,
+shoud
+obtain.
+critical
+faculties
+critical
+instructers
+laern.
+presher
+time;
+althouh
+seldem
+so,
+oportunity
+afairs,
+considerable
+gidance.
+(From
+teacher's
+e.
+a.
+meras)
+.
+
+Number of words in the dictionary:25144
+Number of the text to be spell-checked: 225
+Number of misspelled words: 63
+Number of probes during the checking phase: 2597
+Average number of probes per word: 11.54
+Average number of probes per lookup operation: 7.38

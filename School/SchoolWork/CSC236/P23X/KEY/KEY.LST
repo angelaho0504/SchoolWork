@@ -1,0 +1,124 @@
+Microsoft (R) Macro Assembler Version 6.11		    06/12/19 02:39:01
+key.asm							     Page 1 - 1
+
+
+				;--------------------------------------------------------------------
+				;   Program:  Key ( MASM version)
+				;
+				;   Function: Reads printable characters (20h-7Fh) from the Standard Input (keyboard or a
+				;             redirected ASCII text file) without echo(using ah=08h and int 21h). If the
+				;             character is an upper case letter or a space then write it to the standard output.
+				;             If the charater is a lower case letter then process it to an upper case letter then
+				;             write it to the standard output. If the character is a period then write it to the
+				;             standard output and exit out the program.
+				;
+				;   Owner:    Angela Ho
+				;
+				;   Date:     Changes
+				;   06/09/19  original version
+				;---------------------------------------
+				        .model      small              ; 64k code and 64k data
+				        .8086                          ; only allow 8086 instructions
+				        .stack      256                ; reserve 256 bytes for the stack
+				;---------------------------------------
+ 0000				        .code                          ;start the code segmen
+				;---------------------------------------
+ 0000				key:
+				;---------------------------------------
+				; while ( ch != '.' )
+				;---------------------------------------
+ 0000				while_:                                ;
+				;---------------------------------------
+				; ch = getchar()
+				;---------------------------------------
+ 0000  B4 08			         mov        ah,8;              ; set up to read a character without echo
+ 0002  CD 21			         int        21h                ; read the character
+				;---------------------------------------
+				; if ( ch == ' ' )
+				;---------------------------------------
+ 0004  3C 20			         cmp        al, 20h            ; is the char a space
+ 0006  74 16			         je         display_           ; display the character
+				;---------------------------------------
+				; else if ( ch == '.' )
+				;---------------------------------------
+ 0008  3C 2E			         cmp        al, 2Eh            ; is the char a period
+ 000A  74 12			         je         display_           ; display the character
+				;---------------------------------------
+				; else if ( ch < 'A' )
+				;---------------------------------------
+ 000C  3C 41			         cmp        al, 41h            ; is the char lower than 'A' in ASCII
+ 000E  7C F0			         jl         while_             ; Lower then 'A' in ASCII, throw away
+				;---------------------------------------
+				; else if ( ch <= 'Z' )
+				;---------------------------------------
+ 0010  3C 5A			         cmp        al, 5Ah            ;
+ 0012  7E 0A			         jle        display_          ; display the character
+				;---------------------------------------
+				; else if ( ch < 'a' )
+				;---------------------------------------
+ 0014  3C 61			         cmp        al, 61h            ; is the char lower than 'a' in ASCII
+ 0016  7C E8			         jl         while_             ; Lower then 'a' in ASCII, throw away
+				;---------------------------------------
+				; else if ( ch <= 'z' )
+				;---------------------------------------
+ 0018  3C 7A			         cmp        al, 7Ah            ; is the char lower and equal to 'z' in ASCII
+ 001A  7F E4			         jg         while_             ; everything else is gone
+				;---------------------------------------
+				; ch = ch - 32
+				;---------------------------------------
+ 001C  2C 20			         sub        al, 20h            ; convert to upper case
+				;---------------------------------------
+				; putchar(ch)
+				;---------------------------------------
+ 001E				display_:
+ 001E  B4 02			         mov        ah,2               ; set up to print a character
+ 0020  8A D0			         mov        dl,al              ;
+ 0022  CD 21			         int        21h                ; print the character
+ 0024  3C 2E			         cmp        al, 2Eh            ; is char a period
+ 0026  75 D8			         jne        while_             ; no, repeat while
+				;---------------------------------------
+				; Terminate the Program
+				;---------------------------------------
+ 0028				exit:
+ 0028  B8 4C00			         mov        ax,4c00h           ; set dos code to terminate program
+ 002B  CD 21			         int        21h                ; return to dos
+				         end        key                ;end marks the end of the source code
+				                                       ;....and specifies where you want the
+				                                       ;....program to start execution
+				;---------------------------------------
+Microsoft (R) Macro Assembler Version 6.11		    06/12/19 02:39:01
+key.asm							     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'DATA'	
+STACK  . . . . . . . . . . . . .	16 Bit	 0100	  Para	  Stack	  'STACK'	 
+_TEXT  . . . . . . . . . . . . .	16 Bit	 002D	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+display_ . . . . . . . . . . . .	L Near	 001E	  _TEXT	
+exit . . . . . . . . . . . . . .	L Near	 0028	  _TEXT	
+key  . . . . . . . . . . . . . .	L Near	 0000	  _TEXT	
+while_ . . . . . . . . . . . . .	L Near	 0000	  _TEXT	
+
+	   0 Warnings
+	   0 Errors

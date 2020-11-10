@@ -1,0 +1,115 @@
+Microsoft (R) Macro Assembler Version 6.11		    07/10/19 02:53:04
+linkhll.asm						     Page 1 - 1
+
+
+				;-----------------------------------------------------------
+				;
+				; Program: Linkhll
+				;
+				; Function: The linkhll subroutine is a C/C++ subroutine
+				;          and will be linked with a C/C++ main program.
+				;          The linkhll subroutine will be
+				;          passed four unsigned words on the stack
+				;          (these are passed by value).
+				;          Linkhll is to find the two largest unsigned values and
+				;          multiply them creating a 32 bit unsigned product.
+				;
+				; Owner: Angela Ho
+				;
+				; Date:
+				; 07/03/2016   Original Version
+				;
+				;
+				;---------------------------------------
+				.model    small               ;
+				.8086                         ;
+				public    _linkhll            ;
+				;---------------------------------------
+ 0000				.data
+				;---------------------------------------
+ 0000				.code
+				;---------------------------------------
+				;
+				; Code Segment
+				;
+				;---------------------------------------
+ 0000				_linkhll:                              ;
+ 0000  55			         push      bp                  ; save caller's bp
+ 0001  8B EC			         mov       bp,sp               ; init bp so we can get the arguments
+ 0003  8B 46 04			         mov       ax,[bp+4]           ; set the first val to max
+ 0006  8B 5E 06			         mov       bx,[bp+6]           ; set the second val to 2max
+ 0009  3B D8			         cmp       bx,ax               ; test if the first and second need to swap
+ 000B  76 01			         jbe       loadThird_          ; if not just load the third
+ 000D  93			         xchg      ax,bx               ; else swap
+				;---------------------------------------
+				; Ｔry to load the third value;
+				;---------------------------------------
+ 000E				loadThird_:
+ 000E  39 5E 08			         cmp       [bp+8],bx           ; compare third to second max
+ 0011  76 08			         jbe       loadForth_          ; if third is lower than dont change
+				;---------------------------------------
+				; update the maximums
+				;---------------------------------------
+ 0013				update_:
+ 0013  8B 5E 08			         mov       bx,[bp+8]           ; update max
+ 0016  3B D8			         cmp       bx,ax               ; compare the max and second max
+ 0018  76 01			         jbe       loadForth_          ; if not, test if there is next val
+ 001A  93			         xchg      ax,bx               ; exchange the maxs
+				;---------------------------------------
+				; Ｔry to load the forth value;
+				;---------------------------------------
+ 001B				loadForth_:
+ 001B  39 5E 0A			         cmp       [bp+10],bx          ; compare forth to second max
+ 001E  76 03			         jbe       getVal_             ; if forth value is lower, dont change
+				;---------------------------------------
+				; update the maximums
+				;---------------------------------------
+ 0020				update1_:
+ 0020  8B 5E 0A			         mov       bx,[bp+10]          ; update max
+				;---------------------------------------
+				;
+				; get the multiple and return it then exit
+				;---------------------------------------
+ 0023				getVal_:
+ 0023  F7 E3			         mul       bx                  ;
+ 0025  5D			         pop       bp                  ;
+ 0026  C3			         ret                           ; return
+				         end                           ; end source code
+				;---------------------------------------
+Microsoft (R) Macro Assembler Version 6.11		    07/10/19 02:53:04
+linkhll.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+DGROUP . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	16 Bit	 0000	  Word	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	16 Bit	 0027	  Word	  Public  'CODE'	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 0000h	 
+@DataSize  . . . . . . . . . . .	Number	 0000h	 
+@Interface . . . . . . . . . . .	Number	 0000h	 
+@Model . . . . . . . . . . . . .	Number	 0002h	 
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 DGROUP
+@fardata?  . . . . . . . . . . .	Text   	 FAR_BSS
+@fardata . . . . . . . . . . . .	Text   	 FAR_DATA
+@stack . . . . . . . . . . . . .	Text   	 DGROUP
+_linkhll . . . . . . . . . . . .	L Near	 0000	  _TEXT	Public
+getVal_  . . . . . . . . . . . .	L Near	 0023	  _TEXT	
+loadForth_ . . . . . . . . . . .	L Near	 001B	  _TEXT	
+loadThird_ . . . . . . . . . . .	L Near	 000E	  _TEXT	
+update1_ . . . . . . . . . . . .	L Near	 0020	  _TEXT	
+update_  . . . . . . . . . . . .	L Near	 0013	  _TEXT	
+
+	   0 Warnings
+	   0 Errors
